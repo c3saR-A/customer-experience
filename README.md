@@ -25,11 +25,13 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 1. Copia el archivo de ejemplo:
    ```bash 
    cp .env.example .env
-2. Edita el archivo .env con tus credenciales locales (MySQL, puertos, etc.)
-3. Levantar contenedores
+2. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
+3. Levantar contenedores (editar puertos de ser necesario)
    docker-compose up -d
 4. Ejecutar aplicación (En terminal)
    Linux:
-     ./gradlew bootRun
+   ``` bash
+   ./gradlew bootRun
    Win:
-     gradlew bootRun o .\gradlew.bat bootRun
+   ``` bash
+   gradlew bootRun o .\gradlew.bat bootRun
