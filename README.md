@@ -23,7 +23,7 @@ El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 ### 2. Configuración de Variables de Entorno
 El proyecto utiliza un sistema de configuración basado en archivos `.env`. 
 1. Copia el archivo de ejemplo:
-   ```Bash 
+   ```bash 
    cp .env.example .env
 2. Edita el archivo .env con tus credenciales locales (MySQL, puertos, etc.)
 3. Levantar contenedores
