@@ -30,8 +30,8 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
    docker-compose up -d
 4. Ejecutar aplicación (En terminal)
    Linux:
-   ``` bash
-   ./gradlew bootRun
+      ``` bash
+      ./gradlew bootRun
 
    Win:
    ``` bash
