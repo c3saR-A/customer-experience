@@ -14,7 +14,7 @@ El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 * **Repositories:** Capa de persistencia utilizando Spring Data JPA.
 * **Security:** Configuración de seguridad base para implementación de JWT.
 
-## 🚀 Inicio Rápido
+## Inicio Rápido
 
 ### 1. Requisitos Previos
 * Tener instalado **Docker** y **Docker Compose**.
