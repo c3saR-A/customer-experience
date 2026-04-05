@@ -1,0 +1,51 @@
+services:
+  # Spring DB
+  mysql-customer:
+    image: mysql:8.0
+    container_name: mysql-customer
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  # Rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-service
+    ports:
+      - "5672:5672"   # Puerto de mensajes
+      - "15672:15672" # Panel de control (User: guest / Pass: guest)
+
+  # EspoCRM DB
+  mysql-espocrm:
+    image: mysql:8.0
+    container_name: mysql-espocrm
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_ESPOCRM_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./espocrm_db_data:/var/lib/mysql
+
+  # EspoCRM
+  espocrm:
+    image: espocrm/espocrm
+    container_name: espocrm-service
+    environment:
+      ESPOCRM_DATABASE_HOST: mysql-espocrm
+      ESPOCRM_DATABASE_USER: ${DB_USER}
+      ESPOCRM_DATABASE_PASSWORD: ${DB_PASSWORD}
+      ESPOCRM_DATABASE_NAME: ${DB_ESPOCRM_DATABASE}
+      ESPOCRM_ADMIN_USERNAME: admin
+      ESPOCRM_ADMIN_PASSWORD: admin
+      ESPOCRM_SITE_URL: http://localhost:8081
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql-espocrm
