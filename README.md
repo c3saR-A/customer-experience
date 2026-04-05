@@ -1,4 +1,4 @@
-# Customer Experience Platform 🚀
+# Customer Experience Platform 
 
 ## Stack
 * **Backend:** Java 21, Spring Boot 3.5, Gradle.
