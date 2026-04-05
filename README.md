@@ -29,10 +29,9 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 3. Levantar contenedores (editar puertos de ser necesario)
    docker-compose up -d
 4. Ejecutar aplicación (En terminal)
-   Linux:
+   - Linux:
       ``` bash
       ./gradlew bootRun
-
-   Win:
+   - Win:
    ``` bash
    gradlew bootRun o .\gradlew.bat bootRun
