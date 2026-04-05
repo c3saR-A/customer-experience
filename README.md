@@ -32,6 +32,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
    Linux:
    ``` bash
    ./gradlew bootRun
-5. 
+
    Win:
+   ``` bash
    gradlew bootRun o .\gradlew.bat bootRun
