@@ -28,10 +28,11 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 2. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
 3. Levantar contenedores (editar puertos de ser necesario)
    docker-compose up -d
-4. Ejecutar aplicación (En terminal)
+4. Ejecutar aplicación desde terminal
    - Linux:
       ``` bash
       ./gradlew bootRun
    - Win:
-   ``` bash
-   gradlew bootRun o .\gradlew.bat bootRun
+      ``` bash
+      gradlew bootRun o .\gradlew.bat bootRun
+5. Ejecutar desde Intellij con boton Run
