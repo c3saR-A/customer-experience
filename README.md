@@ -31,7 +31,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 4. Ejecutar aplicación (En terminal)
    Linux:
    ``` bash
-   ./gradlew bootRun
+   ./gradlew bootRun ```
    Win:
    ``` bash
-   gradlew bootRun o .\gradlew.bat bootRun
+   gradlew bootRun o .\gradlew.bat bootRun ```
