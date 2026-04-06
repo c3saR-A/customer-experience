@@ -41,15 +41,15 @@ public class AuthService {
         newUser.setLastname(userRegistrationDTO.getLastname());
         newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
 
-        // Guarda en Base
+        // Guardar en Base
         User savedUser = userRepository.save(newUser);
 
         // Sincronizar con EspoCRM
 //        espoCRMService.createContact(userRegistrationDTO).subscribe(responde -> {
 //            System.out.println("Si jalo el EspoCRM: " + responde);
 //        });
-        // En AuthService.java
-        espoCRMService.createContact(userRegistrationDTO)
+
+        espoCRMService.syncUser(savedUser.getFirstname(), savedUser.getLastname(), savedUser.getEmail())
                 .doOnSuccess(res -> System.out.println("Respuesta de Espo: " + res))
                 .doOnError(err -> System.err.println("Error en Espo: " + err.getMessage()))
                 .subscribe();
