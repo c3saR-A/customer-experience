@@ -11,7 +11,8 @@
 El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 * **Controllers:** Endpoints REST para autenticación y gestión.
 * **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
-* **Entitites** Entidades JPA para base de datos
+* **Entitites** Modelos de datos para MySQL con JPA/Hibernate
+* **DTOs**: Objetos para intercambio de datos entre capas, evitando exponer entidades.
 * **Repositories:** Capa de persistencia utilizando Spring Data JPA.
 * **Config:** Configuraciones y seguridad, base para implementación de JWT, WebClient.
 
@@ -28,7 +29,8 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
    cp .env.example .env
 2. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
 3. Levantar contenedores (editar puertos de ser necesario)
-   ```docker-compose up -d
+   ``` bash
+      docker-compose up -d
 4. Ejecutar aplicación desde terminal
    - Linux:
       ``` bash
@@ -45,3 +47,6 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 | `POST` | `/api/auth/register` | Registro de nuevos usuarios en MySQL. | Público |
 | `POST` | `/api/auth/login` | Autenticación y generación de JWT. | Público |
 | `POST` | `/api/crm/sync` | Sincronización manual con EspoCRM. | Privado (USER) |
+
+**Nota sobre Seguridad:** 
+Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT_TOKEN>
