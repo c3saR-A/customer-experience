@@ -17,24 +17,24 @@ public class EspoCRMService {
         this.webClient = espoWebClient;
     }
 
-
-    public Mono<String> createContact(UserRegistrationDTO userRegistrationDto){
+    // registro y sincronización
+    public Mono<String> syncUser(String firstName, String lastName, String email ){
         // datos de EspoCRM para crear un Contacto
         Map<String, Object> contactData = Map.of(
-                "firstName", userRegistrationDto.getFirstname(),
-                "lastName", userRegistrationDto.getLastname(),
-                "emailAddress", userRegistrationDto.getEmail(),
-                "description", "Cliente registrado desde Spring Boot Customer Experience App"
+                "firstName", firstName,
+                "lastName", lastName,
+                "emailAddress", email,
+                "description", "Sincronización de Cliente - Sistema Customer Experience"
         );
 
         return webClient.post()
-                .uri("/Contact")
+                .uri("/contact")
                 .bodyValue(contactData)
                 .retrieve()
                 .bodyToMono(String.class)
                 .onErrorResume(error -> {
-                    System.err.println("Error se daño el jasware al sincroniza con EspoCRM: " + error.getMessage());
-                    return Mono.just("ERROR");
+                    System.err.println("Error: Problemas al sincroniza con EspoCRM: " + error.getMessage());
+                    return Mono.just("ERROR_SYNC");
                 });
     }
 }
