@@ -11,8 +11,9 @@
 El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 * **Controllers:** Endpoints REST para autenticación y gestión.
 * **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
+* **Entitites** Entidades JPA para base de datos
 * **Repositories:** Capa de persistencia utilizando Spring Data JPA.
-* **Security:** Configuración de seguridad base para implementación de JWT.
+* **Config:** Configuraciones y seguridad, base para implementación de JWT, WebClient.
 
 ## Inicio Rápido
 
@@ -27,7 +28,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
    cp .env.example .env
 2. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
 3. Levantar contenedores (editar puertos de ser necesario)
-   docker-compose up -d
+   ```docker-compose up -d
 4. Ejecutar aplicación desde terminal
    - Linux:
       ``` bash
@@ -36,3 +37,11 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
       ``` bash
       gradlew bootRun o .\gradlew.bat bootRun
 5. Ejecutar desde Intellij con boton Run
+
+## Endpoints de la API
+
+| Método | Endpoint | Descripción | Acceso |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Registro de nuevos usuarios en MySQL. | Público |
+| `POST` | `/api/auth/login` | Autenticación y generación de JWT. | Público |
+| `POST` | `/api/crm/sync` | Sincronización manual con EspoCRM. | Privado (USER) |
