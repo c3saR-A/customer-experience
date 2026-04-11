@@ -6,13 +6,14 @@
 * **Mensajería:** RabbitMQ (para comunicación asíncrona).
 * **Integración:** EspoCRM (vía WebClient/REST).
 * **Infraestructura:** Docker & Docker Compose.
+* **Documentacion API:** Swagger UI
 
 ## Arquitectura del Proyecto
 El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 * **Controllers:** Endpoints REST para autenticación y gestión.
 * **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
-* **Entitites** Modelos de datos para MySQL con JPA/Hibernate
-* **DTOs**: Objetos para intercambio de datos entre capas, evitando exponer entidades.
+* **Entitites:** Modelos de datos para MySQL con JPA/Hibernate
+* **DTOs:** Objetos para intercambio de datos entre capas, evitando exponer entidades.
 * **Repositories:** Capa de persistencia utilizando Spring Data JPA.
 * **Config:** Configuraciones y seguridad, base para implementación de JWT, WebClient.
 
@@ -25,28 +26,41 @@ El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 ### 2. Configuración de Variables de Entorno
 El proyecto utiliza un sistema de configuración basado en archivos `.env`. 
 1. Copia el archivo de ejemplo:
-   ```bash 
-   cp .env.example .env
-2. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
-3. Levantar contenedores (editar puertos de ser necesario)
+   * Linux:
+      ```bash
+      tu/ruta/de/archivo
+      cp .env.example .env
+   * Win:
+     ```bash
+     tu/ruta/de/archivo
+     copy .env.example .env
+3. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
+4. Levantar contenedores (editar puertos de ser necesario)
    ``` bash
+      ruta/de/archivo
       docker-compose up -d
-4. Ejecutar aplicación desde terminal
-   - Linux:
+5. Ejecutar aplicación desde terminal
+   * Linux:
       ``` bash
+      tu/ruta/de/archivo
       ./gradlew bootRun
-   - Win:
+   * Win:
       ``` bash
+      tu/ruta/de/archivo
       gradlew bootRun o .\gradlew.bat bootRun
-5. Ejecutar desde Intellij con boton Run
+6. Ejecutar desde Intellij con boton Run
 
 ## Endpoints de la API
 
-| Método | Endpoint | Descripción | Acceso |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Registro de nuevos usuarios en MySQL. | Público |
-| `POST` | `/api/auth/login` | Autenticación y generación de JWT. | Público |
-| `POST` | `/api/crm/sync` | Sincronización manual con EspoCRM. | Privado (USER) |
+| Método   | Endpoint                     | Descripción                                 | Acceso         |
+| :---     | :---                         | :---                                        | :---           |
+| `POST`   | `/api/auth/register`         | Registro de nuevos usuarios en MySQL.       | Público        |
+| `POST`   | `/api/auth/login`            | Autenticación y generación de JWT.          | Público        |
+| `POST`   | `/api/crm/sync`              | Sincronización manual con EspoCRM.          | Privado (USER) |
+| `POST`   | `/api/cart/items`            | Agregar producto a carrito.                 | Privado (USER) |
+| `GET`    | `api/cart `                  | Obtención de todos los productos en carrito.| Privado (USER) |
+| `PUT`    | `api/cart/items/{productId}` | Actualización de producto en carrito.       | Privado (USER) |
+| `DELETE` | `api/cart/items/{productId}` | Eliminación de producto en carrito.         | Privado (USER) | 
 
 **Nota sobre Seguridad:** 
 Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT_TOKEN>
