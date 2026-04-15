@@ -25,21 +25,21 @@ public class AuthService {
     @Transactional
     public User registerUser(UserRegistrationDTO userRegistrationDTO){
         // verificación de usuario ya existente
-        if (userRepository.findByUsername(userRegistrationDTO.getUsername()).isPresent()){
-            throw new RuntimeException("El nombre de usuario " + userRegistrationDTO.getUsername() + " ya está en uso");
+        if (userRepository.findByUsername(userRegistrationDTO.username()).isPresent()){
+            throw new RuntimeException("El nombre de usuario " + userRegistrationDTO.username() + " ya está en uso");
         }
         // verificación de email ya existente
-        if (userRepository.findByEmail(userRegistrationDTO.getEmail()).isPresent()){
-            throw new RuntimeException("El email " + userRegistrationDTO.getEmail() + " ya está registrado");
+        if (userRepository.findByEmail(userRegistrationDTO.email()).isPresent()){
+            throw new RuntimeException("El email " + userRegistrationDTO.email() + " ya está registrado");
         }
 
         // Mapeo y encripción de contra
         User newUser = new User();
-        newUser.setUsername(userRegistrationDTO.getUsername());
-        newUser.setEmail(userRegistrationDTO.getEmail());
-        newUser.setFirstname(userRegistrationDTO.getFirstname());
-        newUser.setLastname(userRegistrationDTO.getLastname());
-        newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
+        newUser.setUsername(userRegistrationDTO.username());
+        newUser.setEmail(userRegistrationDTO.email());
+        newUser.setFirstname(userRegistrationDTO.firstname());
+        newUser.setLastname(userRegistrationDTO.lastname());
+        newUser.setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
 
         // Guardar en Base
         User savedUser = userRepository.save(newUser);
