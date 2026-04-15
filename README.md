@@ -10,12 +10,12 @@
 
 ## Arquitectura del Proyecto
 El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
-* **Controllers:** Endpoints REST para autenticación y gestión.
-* **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
-* **Entitites:** Modelos de datos para MySQL con JPA/Hibernate
-* **DTOs:** Objetos para intercambio de datos entre capas, evitando exponer entidades.
-* **Repositories:** Capa de persistencia utilizando Spring Data JPA.
 * **Config:** Configuraciones y seguridad, base para implementación de JWT, WebClient.
+* **Controllers:** Endpoints REST para autenticación y gestión.
+* **DTOs:** Objetos para intercambio de datos entre capas, evitando exponer entidades.
+* **Entitites:** Modelos de datos para MySQL con JPA/Hibernate
+* **Repositories:** Capa de persistencia utilizando Spring Data JPA.
+* **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
 
 ## Inicio Rápido
 
@@ -56,13 +56,17 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 | :---     | :---                         | :---                                        | :---           |
 | `POST`   | `/api/auth/register`         | Registro de nuevos usuarios en MySQL.       | Público        |
 | `POST`   | `/api/auth/login`            | Autenticación y generación de JWT.          | Público        |
+| `GET`    | `/api/profile`               | Perfil del cliente autenticado              | Privado (USER) |  
 | `POST`   | `/api/crm/sync`              | Sincronización manual con EspoCRM.          | Privado (USER) |
 | `POST`   | `/api/cart/items`            | Agregar producto a carrito.                 | Privado (USER) |
 | `GET`    | `api/cart `                  | Obtención de todos los productos en carrito.| Privado (USER) |
 | `PUT`    | `api/cart/items/{productId}` | Actualización de producto en carrito.       | Privado (USER) |
-| `DELETE` | `api/cart/items/{productId}` | Eliminación de producto en carrito.         | Privado (USER) | 
+| `DELETE` | `api/cart/items/{productId}` | Eliminación de producto en carrito.         | Privado (USER) |
+
 
 **Nota sobre Seguridad:** 
-Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT_TOKEN>
+
+Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT>
 
 un test
+
