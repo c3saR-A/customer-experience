@@ -5,19 +5,19 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Data
-public class UserRegistrationDTO {
-    @NotBlank(message = "El usuario es requerido")
-    private String username;
 
-    @Email(message = "Email no válido")
-    @NotBlank(message = "El email es requerido")
-    private String email;
+public record UserRegistrationDTO(
+        @NotBlank(message = "El usuario es requerido")
+        String username,
 
-    @NotBlank(message = "La contraseña no puede estar vacía")
-    @Size(min = 8, message = "La contraseña debe tener una longitud mínima de 8 caracteres")
-    private String password;
+        @Email(message = "Email no válido")
+        @NotBlank(message = "El email es requerido")
+        String email,
 
-    private String firstname;
-    private String lastname;
-}
+        @NotBlank(message = "La contraseña no puede estar vacía")
+        @Size(min = 8, message = "La contraseña debe tener una longitud mínima de 8 caracteres")
+        String password,
+
+        String firstname,
+        String lastname
+) {}
