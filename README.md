@@ -64,3 +64,5 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 
 **Nota sobre Seguridad:** 
 Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT_TOKEN>
+
+un test
