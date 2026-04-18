@@ -24,7 +24,9 @@ El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 * JDK 21 (opcional si usas el wrapper de Gradle).
 
 ### 2. Configuración de Variables de Entorno
-El proyecto utiliza un sistema de configuración basado en archivos `.env`. 
+El proyecto utiliza un sistema de configuración basado en archivos `.env`.
+Si usas un IDE se recomienda usar un plugin que facilite leer el archivo `.env` ya sea **EnvFile**, **.env files**,
+el de tu preferencia o que conozcas
 1. Copia el archivo de ejemplo:
    * Linux:
       ```bash
@@ -37,7 +39,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 3. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
 4. Levantar contenedores (editar puertos de ser necesario)
    ``` bash
-      ruta/de/archivo
+      tu/ruta/de/archivo
       docker-compose up -d
 5. Ejecutar aplicación desde terminal
    * Linux:
@@ -48,7 +50,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
       ``` bash
       tu/ruta/de/archivo
       gradlew bootRun o .\gradlew.bat bootRun
-6. Ejecutar desde Intellij con boton Run
+6. Ejecutar desde Intellij u otro IDE con boton Run/Ejecutar
 
 ## Endpoints de la API
 
