@@ -41,3 +41,10 @@ services:
       - "8081:80"
     depends_on:
       - mysql-espocrm
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-service
+    ports:
+      - "5672:5672"   # Puerto de mensajes
+      - "15672:15672" # Panel de control (User: guest / Pass: guest)
