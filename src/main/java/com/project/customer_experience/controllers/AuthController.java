@@ -1,7 +1,7 @@
 package com.project.customer_experience.controllers;
 
-import com.project.customer_experience.dto.LoginRequestDTO;
-import com.project.customer_experience.dto.LoginResponseDTO;
+import com.project.customer_experience.dto.request.LoginRequestDTO;
+import com.project.customer_experience.dto.response.LoginResponseDTO;
 import com.project.customer_experience.dto.UserRegistrationDTO;
 import com.project.customer_experience.entities.User;
 import com.project.customer_experience.services.AuthService;

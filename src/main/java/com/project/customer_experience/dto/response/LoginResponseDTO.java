@@ -1,4 +1,4 @@
-package com.project.customer_experience.dto;
+package com.project.customer_experience.dto.response;
 
 
 public record LoginResponseDTO(

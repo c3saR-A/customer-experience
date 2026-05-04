@@ -10,7 +10,7 @@ public class CartItem {
     private Long id;
 
     private Long productId;
-    private Integer quantity;
+    private Integer stockQuantity;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
@@ -20,7 +20,7 @@ public class CartItem {
 
     public Long getProductId() { return productId; }
     public void setProductId(Long productId) { this.productId = productId; }
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+    public Integer getStockQuantity() { return stockQuantity; }
+    public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
     public void setCart(Cart cart) { this.cart = cart; }
 }

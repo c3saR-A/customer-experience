@@ -1,7 +1,6 @@
-package com.project.customer_experience.dto;
+package com.project.customer_experience.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 
 
 public record LoginRequestDTO(
