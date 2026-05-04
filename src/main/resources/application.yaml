@@ -24,7 +24,8 @@ spring:
     port: ${RABBIT_PORT}
     username: ${RABBIT_USER}
     password: ${RABBIT_PASSWORD}
-    # Para conexion externa (Railway)
+    virtual-host: ${RABBIT_VIRTUAL_HOST}
+    # Para conexion externa
     template:
       retry:
         enabled: true
