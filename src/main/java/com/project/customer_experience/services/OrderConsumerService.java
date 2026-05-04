@@ -13,7 +13,7 @@ public class OrderConsumerService {
     // conectrase a las noti con websocket
     // @Autowired NotificacionWebSocket;
 
-    @RabbitListener(queues = "orders.queues")
+    @RabbitListener(queues = "notifications.queue")
     public void receiveOrderEvent(OrderEventDTO orderEvent){
 
         //Log en consola
