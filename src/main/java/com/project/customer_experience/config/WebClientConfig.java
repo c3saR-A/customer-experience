@@ -20,4 +20,12 @@ public class WebClientConfig {
                 .defaultHeader("Content-Type", "application/json")
                 .build();
     }
+
+    @Bean
+    public WebClient webClientGrupoA(WebClient.Builder builder) {
+        return builder
+                .baseUrl("http://localhost:8083") // Puerto del repositorio del Grupo A
+                .defaultHeader("Content-Type", "application/json")
+                .build();
+    }
 }
