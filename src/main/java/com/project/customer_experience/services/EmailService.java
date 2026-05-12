@@ -25,8 +25,8 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             // Configuramos los datos del correo
-            helper.setTo(order.getClientEmail());
-            helper.setSubject("Confirmación de tu Orden #" + order.getOrderId());
+            helper.setTo(order.clientEmail());
+            helper.setSubject("Confirmación de tu Orden #" + order.orderId());
 
             // Pasamos los datos a la plantilla HTML (Thymeleaf)
             Context context = new Context();
