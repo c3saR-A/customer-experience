@@ -20,10 +20,29 @@ spring:
 
   # config rabbitmq
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
+    username: ${RABBIT_USER}
+    password: ${RABBIT_PASSWORD}
+    virtual-host: ${RABBIT_VIRTUAL_HOST}
+    # Para conexion externa
+    template:
+      retry:
+        enabled: true
+        initial-interval: 5s
+
+  # Mailtrap
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   # --- LO NUEVO PARA EL EMAIL ---
     mail:

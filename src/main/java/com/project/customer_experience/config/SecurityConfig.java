@@ -33,12 +33,9 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // 1. Rutas públicas (Siempre van primero)
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll() // Rutas públicas
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-
-                        // 2. Cualquier otra ruta (Carrito, etc.) requiere autenticación
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated() // Cualquier otra ruta (Carrito, etc.) requieren autenticación
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

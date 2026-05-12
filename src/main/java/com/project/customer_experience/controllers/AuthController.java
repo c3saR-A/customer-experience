@@ -1,7 +1,7 @@
 package com.project.customer_experience.controllers;
 
-import com.project.customer_experience.dto.LoginRequestDTO;
-import com.project.customer_experience.dto.LoginResponseDTO;
+import com.project.customer_experience.dto.request.LoginRequestDTO;
+import com.project.customer_experience.dto.response.LoginResponseDTO;
 import com.project.customer_experience.dto.UserRegistrationDTO;
 import com.project.customer_experience.entities.User;
 import com.project.customer_experience.services.AuthService;
@@ -44,18 +44,20 @@ public class AuthController {
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
         Authentication authenticacion = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequestDTO.getUsername(),
-                        loginRequestDTO.getPassword()
+                        loginRequestDTO.username(),
+                        loginRequestDTO.password()
                 )
         );
 
             String accessToken = jwtService.generateAccessToken(authenticacion);
             String refreshToken = jwtService.generateRefreshToken(authenticacion);
 
-            LoginResponseDTO response = new LoginResponseDTO();
-            response.setAccessToken(accessToken);
-            response.setRefreshToken(refreshToken);
-            response.setUsername(loginRequestDTO.getUsername());
+            LoginResponseDTO response = new LoginResponseDTO(
+                    accessToken,
+                    refreshToken,
+                    loginRequestDTO.username()
+            );
+
 
         return ResponseEntity.ok(response);
     }
