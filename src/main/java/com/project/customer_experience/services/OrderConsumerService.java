@@ -3,15 +3,19 @@ package com.project.customer_experience.services;
 import com.project.customer_experience.dto.OrderEventDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderConsumerService {
-    // conectarse a lo de emial
-    // @Autowired ServicioEmail;
 
-    // conectrase a las noti con websocket
-    // @Autowired NotificacionWebSocket;
+    private final EmailService emailService;
+    private final SimpMessagingTemplate messagingTemplate;
+
+    public OrderConsumerService(EmailService emailService, SimpMessagingTemplate messagingTemplate) {
+        this.emailService = emailService;
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @RabbitListener(queues = "notifications.queue")
     public void receiveOrderEvent(OrderEventDTO orderEvent){
@@ -24,7 +28,12 @@ public class OrderConsumerService {
         System.out.println("Productos: " + orderEvent.products());
 
 //      Enviar el correo con Mailtrap
-//      emailService.sendOrderConfirmation(orderEvent);
+        emailService.sendOrderConfirmationEmail(orderEvent);
+
+        String destination = "/topic/orders/" + orderEvent.clientId();
+        messagingTemplate.convertAndSend(destination, "¡Tu orden #" + orderEvent.orderId() + " ha sido confirmada!");
+
+        System.out.println("Correo enviado a " + orderEvent.clientEmail() + " y notificación enviada a " + destination);
 //
 //      Notificar por WebSocket al cliente
 //      notificationHandler.notifyClient(orderEvent.getClientId(), "Tu orden ha sido confirmada");

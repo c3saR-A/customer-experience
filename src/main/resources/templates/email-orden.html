@@ -30,7 +30,7 @@
         <tbody>
         <tr th:each="item : ${order.products}">
             <td th:text="${item.name}"></td>
-            <td th:text="${item.qty}"></td>
+            <td th:text="${item.quantity}"></td>
             <td th:text="${'$' + item.price}"></td>
         </tr>
         </tbody>
