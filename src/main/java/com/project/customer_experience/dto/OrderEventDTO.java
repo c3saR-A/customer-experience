@@ -9,3 +9,4 @@ public record OrderEventDTO(
         List<OrderItemDTO> products,
         Double total
 ) {}
+
