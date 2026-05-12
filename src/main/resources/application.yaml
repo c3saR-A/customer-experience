@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    hibernate:
+    hibernate:  | 
       ddl-auto: update
     show-sql: true
     properties:
@@ -24,6 +24,24 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+  # --- LO NUEVO PARA EL EMAIL ---
+    mail:
+        host: sandbox.smtp.mailtrap.io
+        port: 2525
+        username: 5649306d0bdd38
+        password: bb1bc53d4d456a
+        properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                enable: true
+
+    # --- PARA QUE LEA BIEN LAS FECHAS DEL GRUPO A ---
+    jackson:
+        serialization:
+          write-dates-as-timestamps: false
 
   jwt:
     secret: ${JWT_SECRET}
