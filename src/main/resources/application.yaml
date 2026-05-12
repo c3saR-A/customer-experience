@@ -35,7 +35,7 @@ spring:
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
+    username: ${MAIL_USER}
     password: ${MAIL_PASSWORD}
     properties:
       mail:
@@ -44,20 +44,7 @@ spring:
           starttls:
             enable: true
 
-  # --- LO NUEVO PARA EL EMAIL ---
-    mail:
-        host: sandbox.smtp.mailtrap.io
-        port: 2525
-        username: 5649306d0bdd38
-        password: bb1bc53d4d456a
-        properties:
-          mail:
-            smtp:
-              auth: true
-              starttls:
-                enable: true
-
-    # --- PARA QUE LEA BIEN LAS FECHAS DEL GRUPO A ---
+    # PARA LEER BIEN LAS FECHAS DEL GRUPO A
     jackson:
         serialization:
           write-dates-as-timestamps: false
