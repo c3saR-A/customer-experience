@@ -21,15 +21,15 @@ public class OrderConsumer {
     @RabbitListener(queues = "notifications.queue")
     public void receiveOrderEvent(OrderEventDTO event) {
         // 1. Mensaje en consola para que veas que funciona
-        System.out.println("¡Evento recibido! Procesando orden: " + event.getOrderId());
+        System.out.println("¡Evento recibido! Procesando orden: " + event.orderId());
 
         // 2. Envía el Correo
         emailService.sendOrderConfirmationEmail(event);
 
         // 3. Envía la Notificación en tiempo real (WebSocket)
         // Se envía al canal específico del cliente: /topic/orders/{clientId}
-        String destination = "/topic/orders/" + event.getClientId();
-        messagingTemplate.convertAndSend(destination, "¡Tu orden #" + event.getOrderId() + " ha sido confirmada!");
+        String destination = "/topic/orders/" + event.clientId();
+        messagingTemplate.convertAndSend(destination, "¡Tu orden #" + event.orderId() + " ha sido confirmada!");
 
         System.out.println("Correo enviado a " + event.getClientEmail() + " y notificación enviada a " + destination);
     }
