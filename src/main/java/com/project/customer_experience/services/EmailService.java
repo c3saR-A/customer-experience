@@ -3,6 +3,7 @@ package com.project.customer_experience.services;
 import com.project.customer_experience.dto.OrderEventDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,10 @@ import org.thymeleaf.context.Context;
 
 @Service
 public class EmailService {
+
+    @Value("${app.email.from}")
+    private String fromEmail;
+
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
 
@@ -25,6 +30,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             // Configuramos los datos del correo
+            helper.setFrom(fromEmail);
             helper.setTo(order.clientEmail());
             helper.setSubject("Confirmación de tu Orden #" + order.orderId());
 
