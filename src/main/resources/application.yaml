@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    hibernate:  | 
+    hibernate:
       ddl-auto: update
     show-sql: true
     properties:
@@ -43,11 +43,16 @@ spring:
           auth: true
           starttls:
             enable: true
+            required: true  # Forza el uso de TLS
+          ssl:
+            trust: sandbox.smtp.mailtrap.io # Evitar problemas de certificados
+          connectiontimeout: 10000
+          timeout: 10000
 
-    # PARA LEER BIEN LAS FECHAS DEL GRUPO A
-    jackson:
-        serialization:
-          write-dates-as-timestamps: false
+  # PARA LEER BIEN LAS FECHAS DEL GRUPO A
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 
   jwt:
     secret: ${JWT_SECRET}
@@ -57,3 +62,7 @@ spring:
 espocrm:
   base-url: ${ESPOCRM_BASE_URL}
   api-key: ${ESPOCRM_API_KEY}
+
+app:
+  email:
+    from: "notificaciones@customer.experience.com"
