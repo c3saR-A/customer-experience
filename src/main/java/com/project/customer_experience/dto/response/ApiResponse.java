@@ -1,7 +1,7 @@
 package com.project.customer_experience.dto.response;
 
-public record ApiResponse(
+public record ApiResponse<T>(
         boolean success,
         String message,
-        OrderData data
+        T data
 ) {}
