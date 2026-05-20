@@ -18,10 +18,15 @@ repositories {
 }
 
 dependencies {
+	// OpenAPI / Swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+	// JWT (Java JWT) - Módulos limpios sin duplicados
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	// Spring Boot Starters
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
@@ -31,18 +36,29 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// Seguridad en vistas Thymeleaf
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-	compileOnly 'org.projectlombok:lombok'
+
+	// Herramientas de Desarrollo
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Driver de Base de Datos
+	// (Cambiar por 'com.microsoft.sqlserver:mssql-jdbc' si vas a usar SQL Server)
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// Lombok (Compilación y Procesamiento de Anotaciones)
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Entorno de Pruebas (Testing)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testCompileOnly 'org.projectlombok:lombok'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

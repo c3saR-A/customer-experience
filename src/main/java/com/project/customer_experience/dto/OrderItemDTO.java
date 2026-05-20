@@ -1,8 +1,12 @@
 package com.project.customer_experience.dto;
 
+import java.math.BigDecimal;
+
 public record OrderItemDTO(
-        String sku,
-        String name,
+        Long id,
         int quantity,
-        Double price
+        BigDecimal unitPrice,
+        BigDecimal subtotal,
+        String productName,
+        String productSku
 ) {}

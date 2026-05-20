@@ -15,6 +15,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
+
     @Autowired
     private CartService cartService;
 
@@ -31,7 +32,6 @@ public class CartController {
 
     @PutMapping("/items/{productId}")
     public ResponseEntity<Void> updateItem(Principal principal, @PathVariable Long productId, @RequestBody CartItemDTO dto) {
-        // Usamos el productId de la URL y la cantidad del DTO
         cartService.updateItemQuantity(principal.getName(), productId, dto.quantity());
         return ResponseEntity.ok().build();
     }
@@ -43,8 +43,10 @@ public class CartController {
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity<OrderResponseDTO> checkout(Principal principal) {
-        OrderResponseDTO response = cartService.processCheckout(principal.getName());
+    public ResponseEntity<OrderResponseDTO> checkout(java.security.Principal principal) {
+        String usernameFromToken = principal.getName();
+
+        OrderResponseDTO response = cartService.processCheckout(usernameFromToken);
         return ResponseEntity.ok(response);
     }
 }
