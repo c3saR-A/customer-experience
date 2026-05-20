@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Notificaciones - Grupo B</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #121212; color: white; padding: 40px; }
+    .card { background: #1e1e1e; border-radius: 12px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 600px; margin: auto; }
+    h1 { color: #00d4ff; text-align: center; font-size: 1.5rem; }
+    #status { text-align: center; padding: 10px; border-radius: 6px; margin-bottom: 20px; font-weight: bold; }
+    .online { background: #064e3b; color: #10b981; border: 1px solid #10b981; }
+    .offline { background: #450a0a; color: #ef4444; border: 1px solid #ef4444; }
+    #messages { background: #000; border: 1px solid #333; height: 250px; overflow-y: auto; padding: 15px; border-radius: 8px; font-family: 'Consolas', monospace; font-size: 0.9rem; }
+    .log-entry { border-bottom: 1px solid #222; padding: 8px 0; color: #adbac7; }
+    .highlight { color: #f97316; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Estado en tiempo real (STOMP)</h1>
+  <div id="status" class="offline">DESCONECTADO ❌</div>
+
+  <div id="messages">
+    <div class="log-entry">> Sistema iniciado. Esperando conexión...</div>
+  </div>
+</div>
+
+<script>
+  let stompClient = null;
+
+  function conectar() {
+    // 1. Limpieza preventiva: si ya existe una conexión, la cerramos antes de abrir una nueva
+    if (stompClient !== null) {
+        try {
+            stompClient.disconnect();
+        } catch (e) {
+            console.warn("No se pudo cerrar la conexión anterior correctamente.");
+        }
+    }
+
+    const socket = new SockJS('/ws-notifications');
+    stompClient = Stomp.over(socket);
+    stompClient.debug = null;
+
+    const jwtToken = localStorage.getItem('token');
+
+    stompClient.connect({'Authorization': 'Bearer ' + jwtToken}, function (frame) {
+      const statusDiv = document.getElementById('status');
+      statusDiv.innerText = "CONECTADO AL GRUPO B ✅";
+      statusDiv.className = "online";
+
+      stompClient.subscribe('/topic/orders/8', function (notificacion) {
+          try {
+              if (notificacion.body.trim().startsWith('{')) {
+                  const orden = JSON.parse(notificacion.body);
+                  agregarLog(orden);
+              } else {
+                  agregarLogTexto(notificacion.body);
+              }
+          } catch (e) {
+              console.error("Error al procesar el mensaje:", e);
+              agregarLogTexto("Error de formato: " + notificacion.body);
+          }
+      });
+    }, function (error) {
+      const statusDiv = document.getElementById('status');
+      statusDiv.innerText = "ERROR DE CONEXIÓN ❌. REINTENTANDO...";
+      statusDiv.className = "offline";
+      // 2. Reintento automático cada 5 segundos
+      setTimeout(conectar, 5000);
+    });
+  }
+
+  function agregarLog(data) {
+      const logDiv = document.getElementById('messages');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `[${new Date().toLocaleTimeString()}] <span class="highlight">ORDEN #${data.orderId}</span> recibida. Total: $${data.total}`;
+      logDiv.prepend(entry);
+  }
+
+  function agregarLogTexto(texto) {
+      const logDiv = document.getElementById('messages');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `[${new Date().toLocaleTimeString()}] <span>${texto}</span>`;
+      logDiv.prepend(entry);
+  }
+
+  // Iniciar la primera conexión
+  conectar();
+</script>
+
+</body>
+</html>

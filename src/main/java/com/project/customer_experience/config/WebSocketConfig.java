@@ -19,7 +19,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // El punto de conexión para el cliente (Frontend)
-        registry.addEndpoint("/ws-notifications").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/ws-notifications")
+                // CAMBIA ESTO:
+                .setAllowedOriginPatterns("*")
+                .withSockJS();
     }
 }

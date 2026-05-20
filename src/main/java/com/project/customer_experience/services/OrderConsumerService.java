@@ -30,12 +30,10 @@ public class OrderConsumerService {
 //      Enviar el correo con Mailtrap
         emailService.sendOrderConfirmationEmail(orderEvent);
 
+        // 2. CORRECCIÓN: Enviamos el objeto en lugar del String
         String destination = "/topic/orders/" + orderEvent.clientId();
-        messagingTemplate.convertAndSend(destination, "¡Tu orden #" + orderEvent.orderId() + " ha sido confirmada!");
+        messagingTemplate.convertAndSend(destination, orderEvent);
 
-        System.out.println("Correo enviado a " + orderEvent.clientEmail() + " y notificación enviada a " + destination);
-//
-//      Notificar por WebSocket al cliente
-//      notificationHandler.notifyClient(orderEvent.getClientId(), "Tu orden ha sido confirmada");
+        System.out.println("Notificación enviada a " + destination);
     }
 }
