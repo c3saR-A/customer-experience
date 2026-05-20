@@ -1,6 +1,8 @@
 spring:
   application:
     name: customer_experience
+  config:
+    import: "optional:configserver:http://localhost:8888"
 
   # config de DB
   datasource:
@@ -54,9 +56,6 @@ spring:
     serialization:
       write-dates-as-timestamps: false
 
-  jwt:
-    secret: ${JWT_SECRET}
-#    expiration: ${JWT_EXPIRATION}
 
 # config espocmr
 espocrm:
