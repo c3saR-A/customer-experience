@@ -10,12 +10,12 @@
 
 ## Arquitectura del Proyecto
 El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
-* **Controllers:** Endpoints REST para autenticación y gestión.
-* **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
-* **Entitites:** Modelos de datos para MySQL con JPA/Hibernate
-* **DTOs:** Objetos para intercambio de datos entre capas, evitando exponer entidades.
-* **Repositories:** Capa de persistencia utilizando Spring Data JPA.
 * **Config:** Configuraciones y seguridad, base para implementación de JWT, WebClient.
+* **Controllers:** Endpoints REST para autenticación y gestión.
+* **DTOs:** Objetos para intercambio de datos entre capas, evitando exponer entidades.
+* **Entitites:** Modelos de datos para MySQL con JPA/Hibernate
+* **Repositories:** Capa de persistencia utilizando Spring Data JPA.
+* **Services:** Lógica de negocio e integración con APIs externas (EspoCRM).
 
 ## Inicio Rápido
 
@@ -24,7 +24,9 @@ El sistema sigue un patrón de **Arquitectura en Capas (N-Tier)**:
 * JDK 21 (opcional si usas el wrapper de Gradle).
 
 ### 2. Configuración de Variables de Entorno
-El proyecto utiliza un sistema de configuración basado en archivos `.env`. 
+El proyecto utiliza un sistema de configuración basado en archivos `.env`.
+Si usas un IDE se recomienda usar un plugin que facilite leer el archivo `.env` ya sea **EnvFile**, **.env files**,
+el de tu preferencia o que conozcas
 1. Copia el archivo de ejemplo:
    * Linux:
       ```bash
@@ -37,7 +39,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 3. Edita el archivo .env con tus credenciales locales (MySQL, EspoCRM, etc.)
 4. Levantar contenedores (editar puertos de ser necesario)
    ``` bash
-      ruta/de/archivo
+      tu/ruta/de/archivo
       docker-compose up -d
 5. Ejecutar aplicación desde terminal
    * Linux:
@@ -48,7 +50,7 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
       ``` bash
       tu/ruta/de/archivo
       gradlew bootRun o .\gradlew.bat bootRun
-6. Ejecutar desde Intellij con boton Run
+6. Ejecutar desde Intellij u otro IDE con boton Run/Ejecutar
 
 ## Endpoints de la API
 
@@ -56,11 +58,13 @@ El proyecto utiliza un sistema de configuración basado en archivos `.env`.
 | :---     | :---                         | :---                                        | :---           |
 | `POST`   | `/api/auth/register`         | Registro de nuevos usuarios en MySQL.       | Público        |
 | `POST`   | `/api/auth/login`            | Autenticación y generación de JWT.          | Público        |
+| `GET`    | `/api/profile`               | Perfil del cliente autenticado              | Privado (USER) |  
 | `POST`   | `/api/crm/sync`              | Sincronización manual con EspoCRM.          | Privado (USER) |
 | `POST`   | `/api/cart/items`            | Agregar producto a carrito.                 | Privado (USER) |
 | `GET`    | `api/cart `                  | Obtención de todos los productos en carrito.| Privado (USER) |
 | `PUT`    | `api/cart/items/{productId}` | Actualización de producto en carrito.       | Privado (USER) |
-| `DELETE` | `api/cart/items/{productId}` | Eliminación de producto en carrito.         | Privado (USER) | 
+| `DELETE` | `api/cart/items/{productId}` | Eliminación de producto en carrito.         | Privado (USER) |
+
 
 **Nota sobre Seguridad:** 
-Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT_TOKEN>
+Los endpoints protegidos requieren el encabezado Authorization: Bearer <JWT>

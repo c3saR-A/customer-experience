@@ -1,6 +1,7 @@
 package com.project.customer_experience.controllers;
 
 import com.project.customer_experience.dto.CartItemDTO;
+import com.project.customer_experience.dto.response.OrderResponseDTO;
 import com.project.customer_experience.entities.Cart;
 import com.project.customer_experience.services.CartService;
 import jakarta.validation.Valid;
@@ -39,5 +40,11 @@ public class CartController {
     public ResponseEntity<Void> removeItem(Principal principal, @PathVariable Long productId) {
         cartService.removeItemFromCart(principal.getName(), productId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/checkout")
+    public ResponseEntity<OrderResponseDTO> checkout(Principal principal) {
+        OrderResponseDTO response = cartService.processCheckout(principal.getName());
+        return ResponseEntity.ok(response);
     }
 }
