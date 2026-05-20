@@ -29,6 +29,8 @@ public class JWTService {
     private String createToken(Authentication auth, long expirationTime) {
         User user = (User) auth.getPrincipal(); // Asumiendo que tu entidad User implementa UserDetails
 
+        System.out.println(secretKey);
+
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())

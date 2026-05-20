@@ -21,11 +21,11 @@ public class OrderConsumerService {
     public void receiveOrderEvent(OrderEventDTO orderEvent){
 
         //Log en consola
-        System.out.println("Orden recibida: " + orderEvent.orderId());
-        System.out.println("Cliente Id: " + orderEvent.clientId());
-        System.out.println("Email: " + orderEvent.clientEmail());
-        System.out.println("Total: " + orderEvent.total());
-        System.out.println("Productos: " + orderEvent.products());
+//        System.out.println("Orden recibida: " + orderEvent.orderId());
+//        System.out.println("Cliente Id: " + orderEvent.clientId());
+//        System.out.println("Email: " + orderEvent.clientEmail());
+//        System.out.println("Total: " + orderEvent.total());
+//        System.out.println("Productos: " + orderEvent.products());
 
 //      Enviar el correo con Mailtrap
         emailService.sendOrderConfirmationEmail(orderEvent);
@@ -33,7 +33,7 @@ public class OrderConsumerService {
         String destination = "/topic/orders/" + orderEvent.clientId();
         messagingTemplate.convertAndSend(destination, "¡Tu orden #" + orderEvent.orderId() + " ha sido confirmada!");
 
-        System.out.println("Correo enviado a " + orderEvent.clientEmail() + " y notificación enviada a " + destination);
+//        System.out.println("Correo enviado a " + orderEvent.clientEmail() + " y notificación enviada a " + destination);
 //
 //      Notificar por WebSocket al cliente
 //      notificationHandler.notifyClient(orderEvent.getClientId(), "Tu orden ha sido confirmada");
