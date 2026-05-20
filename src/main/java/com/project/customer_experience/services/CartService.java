@@ -132,9 +132,12 @@ public class CartService {
         OrderRequestDTO orderRequest = new OrderRequestDTO(customerIdLong, email, itemsRequest);
 
         try {
+            String currentToken = (String) org.springframework.security.core.context.SecurityContextHolder.getContext()
+                    .getAuthentication().getCredentials();
             // WebClient ahora sabe exactamente la estructura gracias a los tipos genéricos
             ApiResponse<OrderResponseDTO> responseWrapper = webClientGrupoA.post()
                     .uri("/api/orders")
+                    .headers(headers -> headers.setBearerAuth(currentToken))
                     .bodyValue(orderRequest)
                     .retrieve()
                     .bodyToMono(new org.springframework.core.ParameterizedTypeReference<ApiResponse<OrderResponseDTO>>() {})

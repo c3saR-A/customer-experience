@@ -15,7 +15,7 @@ public class JWTService {
 
     @Value("${jwt.secret}") String secretKey;
 
-    private final long ACCESS_TOKEN_EXP = 10000 * 60 * 15; // 15 min
+    private final long ACCESS_TOKEN_EXP = 1000 * 60 * 30; // 30 min
     private final long REFRESH_TOKEN_EXP = 1000 * 60 * 60 * 24 * 7; // 7 d
 
     public String generateAccessToken(Authentication auth) {

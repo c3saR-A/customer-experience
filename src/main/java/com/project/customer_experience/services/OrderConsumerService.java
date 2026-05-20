@@ -34,8 +34,5 @@ public class OrderConsumerService {
         messagingTemplate.convertAndSend(destination, "¡Tu orden #" + orderEvent.orderId() + " ha sido confirmada!");
 
 //        System.out.println("Correo enviado a " + orderEvent.clientEmail() + " y notificación enviada a " + destination);
-//
-//      Notificar por WebSocket al cliente
-//      notificationHandler.notifyClient(orderEvent.getClientId(), "Tu orden ha sido confirmada");
     }
 }
